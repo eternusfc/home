@@ -1,0 +1,36 @@
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;600&family=Barlow+Condensed:wght@700;800&display=swap" rel="stylesheet"><title>Elenco – Admin Eternus FC</title><link rel="stylesheet" href="../assets/style.css"></head><body>
+<header id="nav"></header>
+<main><h2>Editar elenco</h2>
+<form id="f" class="box linha">
+<label>Nome<input id="nome" required></label>
+<label>Número<input id="numero" type="number" min="0" max="99"></label>
+<label>Posição<select id="posicao"></select></label>
+<label>URL da foto<input id="foto" type="url" placeholder="https://…"></label>
+<label class="chk"><input id="ativo" type="checkbox" checked> Aparece no site</label>
+<div><button class="btn" id="salvar">Adicionar jogador</button> <button type="button" class="btn sec" id="cancelar" hidden>Cancelar</button></div>
+</form>
+<div class="tabela"><table><thead><tr><th>Nº</th><th>Nome</th><th>Posição</th><th>No site</th><th></th></tr></thead><tbody id="corpo"></tbody></table></div>
+</main><div id="aviso" class="aviso" hidden></div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script><script src="../assets/config.js"></script><script src="../assets/app.js"></script><script>
+nav(true,'elenco');
+let lista=[],editId=null;
+posicao.innerHTML=POSICOES.map(p=>'<option>'+p+'</option>').join('');
+async function carregar(){
+  const {data,error}=await sb.from('jogadores').select('*').order('numero',{nullsFirst:false});
+  if(error) return aviso('Erro ao carregar: '+error.message,true);
+  lista=data;
+  corpo.innerHTML=data.length?data.map(j=>'<tr><td>'+esc(j.numero??'–')+'</td><td>'+esc(j.nome)+'</td><td>'+esc(j.posicao)+'</td><td>'+(j.ativo?'Sim':'Não')+'</td><td class="acoes"><button class="btn mini sec" data-e="'+j.id+'">Editar</button><button class="btn mini perigo" data-d="'+j.id+'">Excluir</button></td></tr>').join(''):'<tr><td colspan="5" class="vazio">Nenhum jogador cadastrado. Use o formulário acima.</td></tr>';
+}
+function limpar(){editId=null;f.reset();ativo.checked=true;salvar.textContent='Adicionar jogador';cancelar.hidden=true}
+cancelar.onclick=limpar;
+f.onsubmit=async e=>{e.preventDefault();
+  const d={nome:nome.value.trim(),numero:numero.value===''?null:+numero.value,posicao:posicao.value,foto_url:foto.value.trim()||null,ativo:ativo.checked};
+  const {error}=editId?await sb.from('jogadores').update(d).eq('id',editId):await sb.from('jogadores').insert(d);
+  if(error) return aviso('Erro ao salvar: '+error.message,true);
+  aviso(editId?'Jogador atualizado.':'Jogador adicionado.');limpar();carregar()};
+corpo.onclick=async e=>{
+  const ed=e.target.dataset.e,del=e.target.dataset.d;
+  if(ed){const j=lista.find(x=>x.id==ed);editId=j.id;nome.value=j.nome;numero.value=j.numero??'';posicao.value=j.posicao;foto.value=j.foto_url??'';ativo.checked=j.ativo;salvar.textContent='Salvar alterações';cancelar.hidden=false;nome.focus();scrollTo({top:0,behavior:'smooth'})}
+  if(del&&confirm('Excluir este jogador?')){const {error}=await sb.from('jogadores').delete().eq('id',del);error?aviso('Erro ao excluir: '+error.message,true):(aviso('Jogador excluído.'),carregar())}};
+exigeLogin().then(carregar);
+</script></body></html>

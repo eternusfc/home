@@ -1,0 +1,6 @@
+# Eternus FC – site estático + Supabase
+1. Crie um projeto em supabase.com e rode `sql/setup.sql` no SQL Editor.
+2. Authentication > Users > Add user: crie o e-mail/senha do admin. Em Authentication > Providers > Email, desative "Allow new users to sign up".
+3. Edite `assets/config.js` com a Project URL e a chave anon (Project Settings > API).
+4. Publique a pasta em Netlify, Vercel, GitHub Pages ou Cloudflare Pages.
+Páginas: index, elenco, contato (público) · admin/index (login), admin/elenco, admin/contato.

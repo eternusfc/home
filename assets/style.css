@@ -1,0 +1,52 @@
+:root{--azul:#7b1126;--fundo:#0d0d0d;--papel:#faf7f7;--tinta:#161213;--bola:#7b1126;--linha:#e4d9db;--claro:#c2384f;color-scheme:light}
+*{box-sizing:border-box}
+body{margin:0;font:17px/1.55 'Barlow',system-ui,sans-serif;background:var(--papel);color:var(--tinta)}
+h1,h2,h3,.logo,.num{font-family:'Barlow Condensed',Impact,sans-serif;line-height:1;margin:0}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--claro);outline-offset:2px}
+header{background:var(--fundo);border-bottom:4px solid var(--azul);color:#fff;display:flex;justify-content:space-between;align-items:center;padding:14px 5vw;flex-wrap:wrap;gap:8px;position:sticky;top:0;z-index:5}
+.logo{font-size:30px;font-weight:800;text-decoration:none;letter-spacing:.04em}
+.logo b{color:var(--claro);margin-left:6px}.logo small{font:500 14px 'Barlow';margin-left:10px;opacity:.7}
+nav{display:flex;gap:6px;align-items:center}
+nav a,.link{color:#fff;text-decoration:none;padding:8px 14px;border-radius:99px;background:none;border:0;font:inherit;cursor:pointer}
+nav a[aria-current],nav a:hover,.link:hover{background:rgba(255,255,255,.14)}
+nav .adm{opacity:.55;font-size:14px}
+.hero{background:var(--azul);color:#fff;padding:12vh 5vw 10vh;position:relative;overflow:hidden}
+.hero::before{content:"";position:absolute;right:-12vw;top:50%;width:60vw;height:60vw;max-width:640px;max-height:640px;transform:translateY(-50%);border:6px solid rgba(255,255,255,.22);border-radius:50%}
+.hero h1{font-size:clamp(64px,14vw,170px);font-weight:800;letter-spacing:.01em;position:relative;z-index:1}
+.hero p{font-size:clamp(18px,2.4vw,24px);max-width:30ch;margin:18px 0 28px;position:relative;z-index:1}
+.hero .btn{position:relative;z-index:1}
+.btn{display:inline-block;background:var(--bola);color:#fff;padding:12px 24px;border-radius:8px;border:0;text-decoration:none;cursor:pointer;font:600 17px 'Barlow'}
+.btn.sec{background:transparent;border:2px solid currentColor;color:inherit}
+.btn.mini{padding:6px 12px;font-size:14px}.btn.perigo{background:#0d0d0d}
+main{padding:48px 5vw;max-width:1200px;margin:auto}
+h2{font-size:clamp(36px,6vw,56px);font-weight:700;margin-bottom:24px}
+.grupo{margin-bottom:44px}.grupo h2{font-size:32px;border-bottom:3px solid var(--azul);padding-bottom:6px;margin-bottom:18px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:16px}
+.card{position:relative;background:#fff;border:1px solid var(--linha);border-radius:10px;overflow:hidden;padding-bottom:14px}
+.card img,.card .ini{width:100%;aspect-ratio:1;object-fit:cover;display:grid;place-items:center;background:var(--azul);color:#fff;font:700 54px 'Barlow Condensed'}
+.card .num{position:absolute;top:8px;left:12px;font-size:46px;font-weight:800;color:#fff;text-shadow:0 2px 8px rgba(0,0,0,.5)}
+.card h3{font-size:24px;margin:12px 14px 2px}.card p{margin:0 14px;color:#6b6062;font-size:15px}
+dl{margin:0}
+.info{display:grid;grid-template-columns:minmax(120px,200px) 1fr;gap:12px;padding:16px 0;border-bottom:1px solid var(--linha)}
+.info dt{font-weight:600;color:var(--azul)}.info dd{margin:0;font-size:19px}
+.vazio{color:#6b6062;padding:24px 0}
+form.box{background:#fff;border:1px solid var(--linha);border-radius:10px;padding:22px;display:grid;gap:14px;max-width:640px}
+form.linha{grid-template-columns:repeat(auto-fit,minmax(170px,1fr));max-width:none;align-items:end}
+label{display:grid;gap:4px;font-weight:600;font-size:15px}
+input,select,textarea{font:inherit;padding:10px 12px;border:1px solid #b8aaad;border-radius:8px;background:#fff;width:100%}
+.chk{display:flex;align-items:center;gap:8px}.chk input{width:auto}
+table{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--linha);margin-top:28px}
+th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--linha)}th{font-size:14px;color:#6b6062}
+td.acoes{white-space:nowrap}td.acoes .btn{margin-left:6px}
+.tabela{overflow-x:auto}
+.aviso{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);padding:12px 20px;border-radius:8px;color:#fff;z-index:9}
+.aviso.ok{background:#0d0d0d}.aviso.erro{background:#7b1126}
+.login{min-height:100vh;display:grid;place-items:center;background:var(--fundo);padding:20px}
+.login form{background:#fff;padding:28px;border-radius:12px;width:min(380px,100%);display:grid;gap:14px}
+.login h1{font-size:40px;color:var(--azul)}
+footer{padding:28px 5vw;color:#6b6062;font-size:14px;text-align:center}
+@media(max-width:600px){.info{grid-template-columns:1fr;gap:2px}}
+
+.hero .btn{background:#fff;color:var(--azul)}.hero .btn.sec{background:transparent;color:#fff;border:2px solid #fff}
+.card .num{text-shadow:0 2px 8px rgba(0,0,0,.6)}
